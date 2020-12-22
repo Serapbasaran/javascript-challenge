@@ -1,5 +1,5 @@
 // from data.js
-var tableData = data;
+var tableData = data
 
 // Get a reference to the table body
 var tbody = d3.select("tbody");
@@ -9,16 +9,15 @@ var tbody = d3.select("tbody");
 console.log(tableData);
 
 
-// // Step 5: Use d3 to update each cell's text with tableData values 
-tableData.forEach(function(sightingdata) {
-console.log(sightingdata);
-var row = tbody.append("tr");
-Object.entries(sightingdata).forEach(function([key, value]) {
- console.log(key, value);
-//// Append a cell to the row for each value
+//  Use d3 to update each cell's text with tableData values 
+tableData.forEach((weatherReport) => {
+    var row = tbody.append("tr");
+    Object.entries(weatherReport).forEach(([key, value]) => {
+      var cell = row.append("td");
+      cell.text(value);
+    });
+  });
 
- var cell = row.append("td");
- cell.text(value);
-});
-});
+  filtereddata = tableData.filter(object=>object.datetime === "1/1/2010");
 
+  console.log(filtereddata);
