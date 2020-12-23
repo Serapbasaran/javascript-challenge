@@ -1,49 +1,63 @@
-// from data.js
-var tableData = data;
-
 // Get a reference to the table body
 var tbody = d3.select("tbody");
 
+// Assign the data from `data.js` to the variable `ufoSightings`
+var ufoSightings = data;
 
-// Console.log  data from data.js
-console.log(tableData);
+function init() {
+    // Append the data to the table
+    data.forEach((ufoSightings) => {
+        var row = tbody.append("tr");
+        Object.entries(ufoSightings).forEach(([key, value]) => {
+            var cell = row.append("td");
+            cell.text(value);
+        });  // ends Object.entries.forEach
+    })   // ends data.forEach
+};  //ends the function(init()
 
+// Get the reference to the button with the id property `filter-btn`
+var button = d3.select("#filter-btn");
 
-//  Use d3 to update each cell's text with tableData values 
-tableData.forEach((weatherReport) => {
-    var row = tbody.append("tr");
-    Object.entries(weatherReport).forEach(([key, value]) => {
-      var cell = row.append("td");
-      cell.text(value);
-    });
-  });
-  
+button.on("click", function() {
+    tbody.html("");
+    let filteredData = ufoSightings;
+    // console.log(filteredData);
 
-// Select the button
-var button = d3.select("#button");
+    date = d3.selectAll("#datetime").property("value");
+    city = d3.selectAll("#city").property("value").trim().toLowerCase();
+    state = d3.selectAll("#state").property("value").trim().toLowerCase();
+    country = d3.selectAll("#country").property("value").trim().toLowerCase();
+    shape = d3.selectAll("#shape").property("value").trim().toLowerCase();
+    filters = {'datetime':date, 'city':city, 'state':state, 'country':country, 'shape':shape};
+    //console.log(filters);
 
-// Select the form
-var form = d3.select("#form");
+    // Filter the data and delete filter keys not present
+    Object.entries(filters).forEach(([key, value]) => {
+        if (value === "") {
+            // console.log(filters[key]);
+            delete filters[key];
+        }
+        //else {
+            //console.log(filters);
+        //}
+    }); //  1nd Object.entries
 
-// Create event handlers 
-//button.on("click", runEnter);
-//form.on("submit",runEnter);
+    // Use filtered data to populate table
+    Object.entries(filters).forEach(([key, value]) => {
+            filteredData = filteredData.filter(row => row[key] === value );
+            // console.log(filteredData);
+            filteredData.forEach((filteredData) => {
+                // console.log(filteredData);
+                var row = tbody.append("tr");
+                Object.entries(filteredData).forEach(([key, value]) => {
+                    var cell = row.append("td");
+                    cell.text(value);
+                }) // 3rd Object.entries 
+            })  // filteredData.forEach
 
-// Complete the event handler function for the form
-//function runEnter() {
+    }); //  2nd Object.entries
 
-  // Prevent the page from refreshing
-  //d3.event.preventDefault();
-  
-  // Select the input element and get the raw HTML node
-  var inputElement = d3.select("#datetime.form-control");
+});  // ends the button.on
 
-  // Get the value property of the input element
-  var inputValue = inputElement.property("value");
-
-  console.log(inputValue);
-  
-
-  var filteredData = tableData.filter(person => person.datetime === inputValue);
-
-  console.log(filteredData);
+// Create initial table with all the data so users can browse.
+init();
