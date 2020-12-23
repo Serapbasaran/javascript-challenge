@@ -26,7 +26,7 @@ button.on("click", function() {
 
 tbody.html("");
 
-// Set multiple filters to based on the table columns 
+// Set multiple filters for the user based on the table columns 
 date = d3.selectAll("#datetime").property("value");
 city = d3.selectAll("#city").property("value").toLowerCase();
 state = d3.selectAll("#state").property("value").toLowerCase();
