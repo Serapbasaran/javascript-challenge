@@ -8,7 +8,7 @@
   //console.log(tableData);
   
   
-  //  Use d3 to update each cell's text with tableData values 
+  //  Populate the table with the data of ufo sightings recorded
   tableData.forEach((sighting) => {
       var row = tbody.append("tr");
       Object.entries(sighting).forEach(([key, value]) => {
