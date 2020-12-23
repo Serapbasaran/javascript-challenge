@@ -3,8 +3,7 @@
 
   // Get a reference to the table body
   var tbody = d3.select("tbody");
-  
-  
+    
   // Console.log  data from data.js
   //console.log(tableData);
   
@@ -21,8 +20,7 @@
 // Get the reference to the button with the id property `filter-btn`
 var button = d3.select("#filter-btn");
 
-
-
+// Link the button to the event listener and connect to the filtering function for each input tag
  button.on("click", function() {
 
 // Get the reference to each input element using their id's in the html file
